@@ -36,7 +36,7 @@ class Dice extends React.Component {
       }
       var words = this.state.words;
       for(var i = 0; i < words.length; i++) {
-        var random = words[i][Math.floor(Math.random()*(words.length-1))];
+        var random = words[i][Math.floor(Math.random()*(words[i].length-1))];
         if (this.image(random)) {
           div.appendChild(this.appendImg(random));
         }
