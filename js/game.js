@@ -2,12 +2,30 @@ class Dice extends React.Component {
   constructor() {
     super();
     this.state = {
-      words: this.parseInput(decodeURIComponent(location.search.substring(5))),
+      words: this.parseInput(this.getParams(location.search)['var']),
       div: document.createElement("div")
 		};
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.parseInput = this.parseInput.bind(this);
+    this.getParams = this.getParams.bind(this);
+    this.appendWord = this.appendWord.bind(this);
+    this.appendImg = this.appendImg.bind(this);
   }
+
+  getParams(query){
+    if (!query) {
+      return { };
+    }
+    return (/^[?#]/.test(query) ? query.slice(1) : query)
+      .split('&')
+      .reduce((params, param) => {
+        let [ key, value ] = param.split('=');
+        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+        return params;
+      }, { });
+  };
+
 
   parseInput(input) {
     return input.split('\n\r').map(x => x.split('\n').filter(Boolean));
