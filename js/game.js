@@ -3,7 +3,8 @@ class Dice extends React.Component {
     super();
     this.state = {
     	value: '',
-			input: decodeURIComponent(location.search.substring(5))
+      words: this.parseInput(decodeURIComponent(location.search.substring(5))),
+      div: document.createElement("div")
 		};
 
     this.handleChange = this.handleChange.bind(this);
@@ -18,15 +19,30 @@ class Dice extends React.Component {
     this.setState({value: event.target.value});
   }
 
+  createChild(text) {
+    var p = document.createElement("p");
+    p.appendChild(document.createTextNode(text));
+  return p;
+  }
 
-  handleSubmit(event) {
+  handleSubmit() {
+      var div = this.state.div;
+      while (div.hasChildNodes()) {
+        div.removeChild(div.lastChild);
+      }
+      var words = this.state.words;
+      for(var i = 0; i < words.length; i++) {
+        var random = words[i][Math.floor(Math.random()*(words.length-1))];
+        div.appendChild(this.createChild(random));
+      }
+      document.body.appendChild(div);
   }
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input type="submit" value="Submit" />
-      </form>
+      <div>
+        <input type="button" value="Throw dice" onClick={this.handleSubmit}/>
+      </div>
     );
   }
 }
