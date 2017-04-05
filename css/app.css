@@ -1,7 +1,5 @@
-input[type=text] {
-    width: 50%;
-    padding: 25px 10px;
-}
-textarea {
-  	font-size:15pt; 
-}
+img {
+    max-width:200px; 
+    max-height:200px;
+    height:auto
+  }
