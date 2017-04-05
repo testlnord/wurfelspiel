@@ -17,12 +17,6 @@ class WordsForm extends React.Component {
 
   render() {
     return (
-      // <form action = "game.html" method="GET" onSubmit={this.handleSubmit}>
-      //   <textarea value={this.state.value} name="var" rows="15" cols="40"
-      //    placeholder="Enter your words..." onChange={this.handleChange} />
-      //   <input type="submit" value="Submit" />
-      // </form>
-      
       <form className="form-horizontal" action = "game.html" method="GET" onSubmit={this.handleSubmit}>
       <fieldset>
       <div className="form-group">
