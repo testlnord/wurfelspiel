@@ -40,16 +40,18 @@ class Dice extends React.Component {
 
   appendWord(text) {
     var p = document.createElement("p");
-    p.appendChild(document.createTextNode(text));
+    var wrap = document.createElement("div");
+    p.appendChild(wrap);
+    wrap.className = 'wrap';
+    wrap.appendChild(document.createTextNode(text));
     return p;
   }
 
   appendImg(src) {
     var p = document.createElement("p");
     var img = document.createElement("img");
-    img.className = 'block';
     img.src = src;
-     p.appendChild(img);
+    p.appendChild(img);
     return p;
   }
 
