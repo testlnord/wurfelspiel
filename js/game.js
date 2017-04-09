@@ -45,9 +45,12 @@ class Dice extends React.Component {
   }
 
   appendImg(src) {
+    var p = document.createElement("p");
     var img = document.createElement("img");
+    img.className = 'block';
     img.src = src;
-    return img;
+     p.appendChild(img);
+    return p;
   }
 
   handleSubmit() {
