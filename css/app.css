@@ -1,6 +1,6 @@
 img {
-    max-width:150px; 
-    max-height:150px;
+    max-width: 200px; 
+    max-height: 200px;
     display: block;
     position: absolute;
     margin: auto;
@@ -9,24 +9,23 @@ img {
     right: 0;
     bottom: 0;
   }
- .wrap {
-    display: table;
-    vertical-align: central;
-    margin: auto;
-    position: absolute;
-	font-weight: bold;
-	font-size: 1.5em;
-	background-color: red;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-  }
 
-p {
-    width: 150px;
-    height: 150px;
-    background-color:  	rgb(179,200,255);
-    box-shadow: 10px 10px 5px #888888;
-    position: relative;
+.wrap {
+	display: table;
+  	width: 200px;
+    height: 200px;
+    margin-top: 10px;
+}
+.container {
+	width: 200px;
+	height: 200px;
+  	display: table-cell;
+  	text-align: center;
+  	color: white;
+  	font-weight: bold; 
+  	vertical-align: middle;
+  	background-color: #6493BA;
+  	box-shadow: 10px 10px 5px #888888;
+  	word-break: break-all;
+  	position: relative;
 }

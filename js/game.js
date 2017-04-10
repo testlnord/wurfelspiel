@@ -9,8 +9,6 @@ class Dice extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.parseInput = this.parseInput.bind(this);
     this.getParams = this.getParams.bind(this);
-    this.appendWord = this.appendWord.bind(this);
-    this.appendImg = this.appendImg.bind(this);
   }
 
   getParams(query){
@@ -38,21 +36,14 @@ class Dice extends React.Component {
 
   }
 
-  appendWord(text) {
-    var p = document.createElement("p");
-    var wrap = document.createElement("div");
-    p.appendChild(wrap);
-    wrap.className = 'wrap';
-    wrap.appendChild(document.createTextNode(text));
-    return p;
-  }
-
-  appendImg(src) {
-    var p = document.createElement("p");
-    var img = document.createElement("img");
-    img.src = src;
-    p.appendChild(img);
-    return p;
+  changeFontSize(word) {
+    var length = word.length;
+    if(length <= 10)
+      return "30pt";
+    else if(length <= 15)
+      return "25pt";
+    else
+      return "20pt";
   }
 
   handleSubmit() {
@@ -62,13 +53,27 @@ class Dice extends React.Component {
       }
       var words = this.state.words;
       for(var i = 0; i < words.length; i++) {
+
         var random = words[i][Math.floor(Math.random()*(words[i].length-1))];
+
+        var wrap = document.createElement("div");
+        var container = document.createElement("div");
+        wrap.appendChild(container);
+        wrap.className = 'wrap';
+        container.className = 'container';
+
+        var child;
         if (this.image(random)) {
-          div.appendChild(this.appendImg(random));
+          child = document.createElement("img");
+          child.src = random;
         }
         else {
-          div.appendChild(this.appendWord(random));
+          child = document.createTextNode(random);
+          container.style.fontSize = this.changeFontSize(random);
         }
+        container.appendChild(child);
+        div.appendChild(wrap);
+
       }
       document.body.appendChild(div);
   }
@@ -76,7 +81,7 @@ class Dice extends React.Component {
   render() {
     return (
       <div>
-        <input type="button" value="Throw dice" onClick={this.handleSubmit}/>
+        <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Throw dice</button>
       </div>
     );
   }
