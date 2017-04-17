@@ -9,6 +9,7 @@ class Dice extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.parseInput = this.parseInput.bind(this);
     this.getParams = this.getParams.bind(this);
+    this.changeFontSize = this.changeFontSize.bind(this);
   }
 
   getParams(query){
@@ -54,7 +55,7 @@ class Dice extends React.Component {
       var words = this.state.words;
       for(var i = 0; i < words.length; i++) {
 
-        var random = words[i][Math.floor(Math.random()*(words[i].length-1))];
+        var random = words[i][Math.floor(Math.random()*(words[i].length))];
 
         var wrap = document.createElement("div");
         var container = document.createElement("div");
