@@ -29,7 +29,7 @@ class Dice extends React.Component {
         }
         catch(e) {
           if (e.name =="URIError") {
-             params[key] = value ? unescape(value) : '';
+              params[key] = value ? unescape(value) : '';
           }
           else {
             throw e;
@@ -63,7 +63,7 @@ class Dice extends React.Component {
   }
 
   handleSubmit() {
-      var div = this.state.div;
+      var div = document.getElementById("wordsContainer");
       while (div.hasChildNodes()) {
         div.removeChild(div.lastChild);
       }
@@ -96,8 +96,12 @@ class Dice extends React.Component {
 
   render() {
     return (
-      <div>
-        <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>Throw dice</button>
+      <div className="main">
+        <div className="btnContainer">
+          <button type="submit" className="btn btn-primary btn-lg" onClick={this.handleSubmit}>Throw dice</button>
+        </div>
+        <div className="wordsContainer" id="wordsContainer">
+        </div>
       </div>
     );
   }

@@ -29,3 +29,15 @@ img {
   	word-break: break-all;
   	position: relative;
 }
+
+.wordsContainer {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+}
+
+
+.main {
+	text-align: center;
+	margin-top: 100px;
+}
