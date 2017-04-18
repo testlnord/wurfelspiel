@@ -24,7 +24,18 @@ class Dice extends React.Component {
         value = value.replace(r, function (match, grp) {
           var x0 = String.fromCharCode(parseInt(grp.slice(6,-3), 10));
           return encodeURIComponent(x0); } );
-        params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+        try {
+          params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
+        }
+        catch(e) {
+          if (e.name =="URIError") {
+             params[key] = value ? unescape(value) : '';
+          }
+          else {
+            throw e;
+          }
+        }
+
         return params;
       }, { });
   };
