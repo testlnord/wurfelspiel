@@ -20,22 +20,11 @@ class Dice extends React.Component {
       .split('&')
       .reduce((params, param) => {
         let [ key, value ] = param.split('=');
-        var r = /(%26%23[\d\w]{1,}%3B)/gi;
+        value = unescape(value);
+        var r = /(&#[\d\w]{1,};)/gi;
         value = value.replace(r, function (match, grp) {
-          var x0 = String.fromCharCode(parseInt(grp.slice(6,-3), 10));
-          return encodeURIComponent(x0); } );
-        try {
-          params[key] = value ? decodeURIComponent(value.replace(/\+/g, ' ')) : '';
-        }
-        catch(e) {
-          if (e.name =="URIError") {
-              params[key] = value ? unescape(value) : '';
-          }
-          else {
-            throw e;
-          }
-        }
-
+          return String.fromCharCode(parseInt(grp.slice(2,-1), 10)); } );
+        params[key] = value;
         return params;
       }, { });
   };
