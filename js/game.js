@@ -20,7 +20,7 @@ class Dice extends React.Component {
       .split('&')
       .reduce((params, param) => {
         let [ key, value ] = param.split('=');
-        value = unescape(value);
+        value = decodeURIComponent(value);
         var r = /(&#[\d\w]{1,};)/gi;
         value = value.replace(r, function (match, grp) {
           return String.fromCharCode(parseInt(grp.slice(2,-1), 10)); } );
