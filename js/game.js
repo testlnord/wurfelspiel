@@ -2,28 +2,29 @@ class Dice extends React.Component {
   constructor() {
     super();
     this.state = {
-      words: this.parseInput(this.getParams(location.search)['var']),
+      words: this.parseInput(this.getParams(location.search)['Data']),
+      currentWords: [],
+      dices: [],
       div: document.createElement("div")
-		};
+    };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDiceThrow = this.handleDiceThrow.bind(this);
     this.parseInput = this.parseInput.bind(this);
     this.getParams = this.getParams.bind(this);
-    this.changeFontSize = this.changeFontSize.bind(this);
+    this.determineFontSize = this.determineFontSize.bind(this);
+    this.isImage = this.isImage.bind(this);
+    this.createWords = this.createWords.bind(this);
   }
 
   getParams(query){
     if (!query) {
       return { };
     }
+
     return (/^[?#]/.test(query) ? query.slice(1) : query)
       .split('&')
       .reduce((params, param) => {
         let [ key, value ] = param.split('=');
-        value = decodeURIComponent(value).replace(/\+/g,' ');
-        var r = /(&#[\d\w]{1,};)/gi;
-        value = value.replace(r, function (match, grp) {
-          return String.fromCharCode(parseInt(grp.slice(2,-1), 10)); } );
         params[key] = value;
         return params;
       }, { });
@@ -31,17 +32,17 @@ class Dice extends React.Component {
 
 
   parseInput(input) {
-    return input.split('\n\r').map(x => x.split('\n').filter(Boolean));
+    input = LZString.decompressFromEncodedURIComponent(input).replace(/\+/g,' ');
+    return input.split('\n\n').map(x => x.split('\n').filter(Boolean));
   }
 
-  image(word) {
+  isImage(word) {
     var expr = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
     var regex = new RegExp(expr);
     return word.match(regex);
-
   }
 
-  changeFontSize(word) {
+  determineFontSize(word) {
     var length = word.length;
     if(length <= 10)
       return "30pt";
@@ -51,45 +52,39 @@ class Dice extends React.Component {
       return "20pt";
   }
 
-  handleSubmit() {
-      var div = document.getElementById("wordsContainer");
-      while (div.hasChildNodes()) {
-        div.removeChild(div.lastChild);
-      }
-      var words = this.state.words;
+  createWords(words) {
       for(var i = 0; i < words.length; i++) {
-
-        var random = words[i][Math.floor(Math.random()*(words[i].length))];
-
-        var wrap = document.createElement("div");
-        var container = document.createElement("div");
-        wrap.appendChild(container);
-        wrap.className = 'wrap';
-        container.className = 'container';
-
-        var child;
-        if (this.image(random)) {
-          child = document.createElement("img");
-          child.src = random;
-        }
-        else {
-          child = document.createTextNode(random);
-          container.style.fontSize = this.changeFontSize(random);
-        }
-        container.appendChild(child);
-        div.appendChild(wrap);
-
-      }
-      document.body.appendChild(div);
+        var randomWord = words[i][Math.floor(Math.random()*(words[i].length))];
+        this.state.currentWords[i] = randomWord;
+    }
   }
-
+  handleDiceThrow() {
+    this.createWords(this.state.words);
+    this.state.dices=[];
+    for (var i=0; i < this.state.currentWords.length; i++) {
+      var word = this.state.currentWords[i];
+      var child;
+        if (this.isImage(word)){
+          child = <img src={word} />; 
+      } else {
+          child = <p>{word}</p>;
+      }
+    this.state.dices.push(<div className="wrap">
+                            <div className="container" style={{"font-size" : this.determineFontSize(word)}}>
+                              {child}
+                            </div>
+                          </div>)
+    }
+  this.forceUpdate();
+}
   render() {
     return (
       <div className="main">
         <div className="btnContainer">
-          <button type="submit" className="btn btn-primary btn-lg" onClick={this.handleSubmit}>Throw dice</button>
+          <button type="submit" className="btn btn-primary btn-lg" onClick={this.handleDiceThrow}>Throw dice</button>
         </div>
         <div className="wordsContainer" id="wordsContainer">
+          {this.state.dices}
         </div>
       </div>
     );

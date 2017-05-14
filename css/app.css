@@ -11,23 +11,23 @@ img {
   }
 
 .wrap {
-	display: table;
-  	width: 200px;
+    display: table;
+    width: 200px;
     height: 200px;
     margin-top: 10px;
 }
 .container {
-	width: 200px;
-	height: 200px;
-  	display: table-cell;
-  	text-align: center;
-  	color: white;
-  	font-weight: bold; 
-  	vertical-align: middle;
-  	background-color: #6493BA;
-  	box-shadow: 10px 10px 5px #888888;
-  	word-break: break-all;
-  	position: relative;
+  width: 200px;
+  height: 200px;
+	display: table-cell;
+	text-align: center;
+	color: white;
+	font-weight: bold; 
+	vertical-align: middle;
+	background-color: #6493BA;
+	box-shadow: 10px 10px 5px #888888;
+	word-break: break-all;
+	position: relative;
 }
 
 .wordsContainer {
