@@ -81,7 +81,7 @@ class Dice extends React.Component {
     return (
       <div className="main">
         <div className="btnContainer">
-          <button type="submit" className="btn btn-primary btn-lg" onClick={this.handleDiceThrow}>Throw dice</button>
+          <button type="submit" className="btn btn-primary btn-lg" onClick={this.handleDiceThrow}>Würfeln!</button>
         </div>
         <div className="wordsContainer" id="wordsContainer">
           {this.state.dices}
