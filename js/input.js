@@ -25,7 +25,7 @@ class WordsForm extends React.Component {
           <label className="col-md-12 control-label" for="textarea"></label>
           <div className="col-sm-9">                     
             <textarea className="form-control" id="textarea" value={this.state.value}
-            name="var" onChange={this.handleChange}>Enter your words</textarea>
+            onChange={this.handleChange}>Enter your words</textarea>
           </div>
         </div>
         <div className="form-group">
