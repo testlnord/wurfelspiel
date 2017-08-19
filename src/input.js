@@ -15,6 +15,8 @@ class WordsForm extends React.Component {
 
   handleSubmit(event) {
     this.setState({lz: LZString.compressToEncodedURIComponent(this.state.value)});
+    var k = 3;
+    k + 3;
   }
 
   render() {
